@@ -1,11 +1,9 @@
 '''Independent scoring'''
 import numpy as np
+import tools as tl
 
 words = np.loadtxt('words.txt',dtype='str')
-words_split = []
-for string in words:
-    words_split.append(list(string))
-words_split = np.array(words_split)
+words_split = tl.split_in_array(words)
 
 score_letters =[]
 for i in range(97,123):
