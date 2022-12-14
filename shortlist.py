@@ -61,7 +61,10 @@ class Shortlist:
         '''use temp_grey_letters to update temp_words'''
         Truth = 0
         for letter in self.temp_grey_letters:
-            Truth +=  (self.temp_words_splitted == letter)
+            temp = (self.temp_words_splitted == letter)            
+            if letter in self.temp_green_letters:
+                temp[:,self.temp_green_letters[letter]] *= False # so that we don't check where a green is.
+            Truth +=  temp
         Or = np.sum(Truth,axis = 1)
         Truth = (Or == 0)
         self.temp_words = self.temp_words[Truth]
@@ -72,7 +75,6 @@ class Shortlist:
         '''use temp_green_letters to update temp_words'''
         Truth = 1
         for letter in self.temp_green_letters:
-            # print(self.temp_green_letters)
             Truth = np.logical_and(Truth, self.temp_words_splitted[:,self.temp_green_letters[letter]] == letter)
         self.temp_words = self.temp_words[Truth]
         self.temp_words_splitted = self.temp_words_splitted[Truth]
@@ -81,8 +83,14 @@ class Shortlist:
     def intersection_yellow(self):
         '''use temp_yellow_letters to update temp_words''' 
         Truth = 1
-        for letter in self.temp_yellow_letters:
-            cols = list(set(range(0,5))-set(self.temp_yellow_letters[letter]))
+        for letter in self.temp_yellow_letters: 
+            #it is somewhere else but not where green or grey is          
+            if letter in self.temp_green_letters:
+                cols = list(set(range(0,5))-set(self.temp_yellow_letters[letter])-{self.temp_green_letters[letter]}) 
+            elif letter in self.temp_grey_letters:
+                cols = list(set(range(0,5))-set(self.temp_yellow_letters[letter])-{self.temp_grey_letters[letter]})
+            else:
+                cols = list(set(range(0,5))-set(self.temp_yellow_letters[letter]))
 
             auxTruth = (self.temp_words_splitted[:,cols] == letter)
             Or = np.sum(auxTruth, axis = 1)

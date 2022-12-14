@@ -19,9 +19,10 @@ short_list.shorting_from_output('serai','-y---')
 short_list.print_top() 
 short_list.shorting_from_output('olent','y-yy-')
 short_list.print_top() 
-short_list.shorting_from_output('doyen','-gygy')
+short_list.shorting_from_output('donee','-ggg-')
 short_list.print_top() 
-
+short_list.shorting_from_output('coney','-gggg')
+short_list.print_top() 
 # input_user_choice = input('What is your first guess choice?')
 # while input_user_choice != '':
 #     input_user_response = input('What is the answer of Wordle ? Enter a string of length 5 (- for grey, g for green, y for yellow)')
