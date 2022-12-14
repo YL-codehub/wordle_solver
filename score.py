@@ -1,4 +1,6 @@
 '''Independent scoring'''
+#make a function of it in tools? and save in file as option?
+# function of the words split...
 import numpy as np
 import tools as tl
 
@@ -33,5 +35,5 @@ ranked_words = words[scores_arg_sort]
 
 
 to_be_written = np.hstack((np.array([ranked_words]).T,np.array([scores_word[scores_arg_sort]]).T))
-np.savetxt('words_ranked.txt', to_be_written, fmt = '%s') #but should rather choose words with different letters
+np.savetxt('words_ranked.txt', to_be_written, fmt = '%s') 
 

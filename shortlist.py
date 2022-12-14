@@ -89,16 +89,19 @@ class Shortlist:
         for letter in self.temp_yellow_letters: 
             #it is somewhere else but not where green or grey is          
             if letter in self.temp_green_letters:
-                cols = list(set(range(0,5))-set(self.temp_yellow_letters[letter])-{self.temp_green_letters[letter]}) 
+                cols = list(set(range(0,5))-set(self.temp_yellow_letters[letter])-set(self.temp_green_letters[letter])) 
+                cols2 = list(set(self.temp_yellow_letters[letter])-set(self.temp_green_letters[letter]))
             elif letter in self.temp_grey_letters:
-                cols = list(set(range(0,5))-set(self.temp_yellow_letters[letter])-{self.temp_grey_letters[letter]})
+                cols = list(set(range(0,5))-set(self.temp_yellow_letters[letter])-set(self.temp_grey_letters[letter]))
+                cols2 = list(set(self.temp_yellow_letters[letter])-set(self.temp_grey_letters[letter]))
             else:
                 cols = list(set(range(0,5))-set(self.temp_yellow_letters[letter]))
+                cols2 = self.temp_yellow_letters[letter]
+
             auxTruth = (self.temp_words_splitted[:,cols] == letter)
             Or = np.sum(auxTruth, axis = 1)
             auxTruth = (Or > 0 ) #only one in total
 
-            cols2 = self.temp_yellow_letters[letter]
             auxTruth2 = (self.temp_words_splitted[:,cols2]==letter)
             Or2 = np.sum(auxTruth2, axis = 1)
             auxTruth2 = (Or2 == 0)
@@ -146,3 +149,6 @@ class Shortlist:
         # print(self.temp_yellow_letters)
         # print(self.temp_grey_letters)
         # # # self.temp_to_global()
+    
+    def update_scoring(self):
+        self.temp_words, self.temp_words_splitted, self.temp_scores = tl.rank_words(self.temp_words,self.temp_words_splitted)
