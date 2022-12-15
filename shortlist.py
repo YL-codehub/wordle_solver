@@ -19,11 +19,12 @@ class Shortlist:
         self.temp_green_letters = {} #dictionary numb letter, letter
         self.temp_yellow_letters = {} #dictionary letter , places where they're not.
     
-    def print_best(self):
+    def best_guess(self, print_ = False):
         '''print best suggestion'''
         if len(self.temp_words)>0:
             temp = self.temp_words[0]
-            print('Estimated guess :',temp)
+            if print_:
+                print('Best guess :',temp)
             return temp
 
     def print_top(self):

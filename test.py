@@ -1,1 +1,0 @@
-'''auto play many times'''
