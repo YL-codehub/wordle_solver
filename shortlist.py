@@ -15,7 +15,7 @@ class Shortlist:
         self.temp_words = []
         self.temp_words_splitted = []
         self.temp_scores = []
-        self.temp_grey_letters = [] # list.
+        self.temp_grey_letters = {} #dictionary letter , places where they're not.
         self.temp_green_letters = {} #dictionary numb letter, letter
         self.temp_yellow_letters = {} #dictionary letter , places where they're not.
     
@@ -63,7 +63,7 @@ class Shortlist:
         for letter in self.temp_grey_letters:
             temp = (self.temp_words_splitted == letter)            
             if letter in self.temp_green_letters:
-                temp[:,self.temp_green_letters[letter]] *= False # so that we don't check where there is a green.
+                temp[:,self.temp_green_letters[letter]] *= False # so that we don't check columns where there is a green.
             if letter in self.temp_yellow_letters:
                 return() # so that we don't check where there is a yellow, will be handled in yellow intersection.
             Truth +=  temp
@@ -114,7 +114,7 @@ class Shortlist:
         self.temp_scores = self.temp_scores[Truth]
 
     def clear_temp_letters(self):
-        self.temp_grey_letters = []
+        self.temp_grey_letters = {}
         self.temp_green_letters = {}
         self.temp_yellow_letters = {}
 
@@ -123,7 +123,10 @@ class Shortlist:
         self.clear_temp_letters()
         for i in range(5):
             if output[i]=='-':
-                self.temp_grey_letters.append(word[i]) #no need to know for multiple places with grey for the same letter
+                if word[i] in self.temp_grey_letters:
+                    self.temp_grey_letters[word[i]].append(i)
+                else:
+                    self.temp_grey_letters[word[i]]= [i]
             elif output[i]=='g':
                 if word[i] in self.temp_green_letters:
                     self.temp_green_letters[word[i]].append(i)
@@ -141,7 +144,7 @@ class Shortlist:
         self.new_temp(word,output)
         if self.temp_green_letters != {}:
             self.intersection_green()
-        if self.temp_grey_letters != []:
+        if self.temp_grey_letters != {}:
             self.intersection_grey()
         if self.temp_yellow_letters != {}:
             self.intersection_yellow()
