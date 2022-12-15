@@ -19,6 +19,14 @@ class Shortlist:
         self.temp_green_letters = {} #dictionary numb letter, letter
         self.temp_yellow_letters = {} #dictionary letter , places where they're not.
     
+    def reset_all_temp(self):
+        self.temp_grey_letters = {}
+        self.temp_green_letters = {}
+        self.temp_yellow_letters = {}
+        self.temp_words = self.words
+        self.temp_words_splitted = self.words_splitted
+        self.temp_scores = self.scores
+
     def best_guess(self, print_ = False):
         '''print best suggestion'''
         if len(self.temp_words)>0:
