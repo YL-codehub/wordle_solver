@@ -1,4 +1,7 @@
-'''To avoid going online'''
+'''
+Wordle is implemented in this class and returns the same outputs as online ones.
+Having a local version is useful to avoid the use of an API or an extra-package to get faster input/outputs than the human-main.py interface.
+'''
 
 class Wordle:
     """ Class maintening remaining possibilities  """
@@ -96,3 +99,5 @@ class Wordle:
 # # -g---
 # # -gyyy
 # # -----
+
+'''Yoann Launay, University of Cambridge.'''

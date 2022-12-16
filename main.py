@@ -1,6 +1,13 @@
 '''Infinite loop while interface.'''
 import numpy as np
 import shortlist as st
+import tools as tl
+import os
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
+if 'words_ranked.txt' not in os.listdir(dir_path):
+    tl.write_1st_guess()    
 
 continuous_scoring = True
 

@@ -3,14 +3,11 @@ import numpy as np
 import tools as tl
 
 class Shortlist:
-    """ Class maintening remaining possibilities  """
+    """Class representing an updatable shortlist of guesses."""
     def __init__(self):
         self.words = []
         self.words_splitted = []
         self.scores = []
-        # self.grey_letters = [] # list.
-        # self.green_letters = {} #dictionary numb letter, letter
-        # self.yellow_letters = {} #dictionary letter , places where they're not.
     
         self.temp_words = []
         self.temp_words_splitted = []
@@ -52,19 +49,6 @@ class Shortlist:
         self.temp_scores = self.scores
         self.words_splitted = tl.split_in_array(self.words)
         self.temp_words_splitted = self.words_splitted
-
-    # def temp_to_global(self):
-    #     '''from temp var to general ones.'''
-    #     self.grey_letters += self.temp_grey_letters
-
-    #     for letter, pos in self.temp_green_letters.items():
-    #         self.green_letters[letter] = pos
-
-    #     for letter, pos in self.temp_yellow_letters.items():
-    #         if not(letter in self.yellow_letters):
-    #             self.yellow_letters[letter] = pos
-    #         else:
-    #             self.yellow_letters[letter] = list(set(self.yellow_letters[letter])+set(pos))
 
     def intersection_grey(self):
         '''use temp_grey_letters to update temp_words'''
@@ -157,10 +141,9 @@ class Shortlist:
             self.intersection_grey()
         if self.temp_yellow_letters != {}:
             self.intersection_yellow()
-        # print(self.temp_green_letters)
-        # print(self.temp_yellow_letters)
-        # print(self.temp_grey_letters)
-        # # # self.temp_to_global()
     
     def update_scoring(self):
         self.temp_words, self.temp_words_splitted, self.temp_scores = tl.rank_words(self.temp_words,self.temp_words_splitted)
+
+
+'''Yoann Launay, University of Cambridge.'''
