@@ -1,12 +1,12 @@
 #  Wordle Solving Assistant #
 
-Motivation
-----------
+## Motivation
+
 [Wordle](https://wordlegame.org/uk) han 3,000 words describing the project and its development; including , testing, profiling etc...
 Contents (optional)
 
-Installation
-------------
+## Installation
+
 This project has been written with Python 3.6 and numpy 1.23 only. Any updated version of those packages should work but the author advises not to take it for granted.
 You can either create the associated environment or create a container with Docker (see below).
 
@@ -29,19 +29,18 @@ Run your files that have been copied into the home repertory:
 python3 main.py
 ```
 
-Features & Construction
------------------------
+## Features & Construction
+
 prototyping and describing functions
-## main.py ##
+### main.py 
 
-Testing
--------
+## Testing
 
-Performances
-------------
 
-Version status & open problems
-------------------------------
+## Performances
+
+## Version status & open problems
+
 
 --------------------------------------------------------------------------------
 
