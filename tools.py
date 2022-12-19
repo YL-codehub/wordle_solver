@@ -57,3 +57,6 @@ def write_1st_guess():
     words, words_split, scores = rank_words(words, words_split)
     to_be_written = np.hstack((np.array([words]).T,np.array([scores]).T))
     np.savetxt('words_ranked.txt', to_be_written, fmt = '%s') #but should rather choose words with different letters
+
+
+'''Yoann Launay, University of Cambridge, 12/22.'''

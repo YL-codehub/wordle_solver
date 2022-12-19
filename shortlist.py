@@ -146,4 +146,4 @@ class Shortlist:
         self.temp_words, self.temp_words_splitted, self.temp_scores = tl.rank_words(self.temp_words,self.temp_words_splitted)
 
 
-'''Yoann Launay, University of Cambridge.'''
+'''Yoann Launay, University of Cambridge, 12/22.'''

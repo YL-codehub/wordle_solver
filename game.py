@@ -100,4 +100,4 @@ class Wordle:
 # # -gyyy
 # # -----
 
-'''Yoann Launay, University of Cambridge.'''
+'''Yoann Launay, University of Cambridge, 12/22.'''

@@ -18,6 +18,7 @@ short_list = st.Shortlist()
 short_list.read_1st_guess()
 
 number_words = len(short_list.words)
+number_iterations = []
 population_per_number_iteration = 20*[0]
 time_per_guess = []
 
@@ -36,6 +37,7 @@ for secret_word in short_list.words:
             short_list.update_scoring() 
         algo_word = short_list.best_guess()
         iter+=1
+    number_iterations.append(iter)
     population_per_number_iteration[iter]+=1
 
 print('Average number of guesses :', np.mean(number_iterations))
@@ -54,3 +56,6 @@ for i, el in enumerate(population_per_number_iteration):
 print('Average time per guess :', '{:.5f}'.format(np.mean(time_per_guess)),' seconds.')
 
 # 5e-4 seconds.
+
+
+'''Yoann Launay, University of Cambridge, 12/22.'''

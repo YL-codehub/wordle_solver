@@ -23,3 +23,6 @@ while input_user_choice != '':
         short_list.update_scoring() 
     short_list.print_top() 
     input_user_choice = input('What is your chosen guess? (Press enter to exit)')
+
+
+'''Yoann Launay, University of Cambridge, 12/22.'''
