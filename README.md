@@ -7,17 +7,24 @@ Contents (optional)
 
 Installation
 ------------
-This project has been written with Python 3.6 and numpy 1.23 only.
+This project has been written with Python 3.6 and numpy 1.23 only. Any updated version of those packages should work but the author advises not to take it for granted.
 You can either create the associated environment or create a container with Docker (see below).
 
 Docker*:
-In the wordle_solver directory; creates a docker image from the Dockerfile:
+- In the wordle_solver directory; creates a docker image from the Dockerfile:
+
 docker build -t python36_and_numpy . 
-#run the image :
+
+- run the image :
+
 docker run -d -t --name=wordle_container python36_and_numpy 
-#Access your image in Linux mode
+
+- Access your image in Linux mode
+
 docker exec -ti wordle_container bash
-#Run your files that have been copied into the home repertory
+
+- Run your files that have been copied into the home repertory
+
 python3 main.py
 
 Features

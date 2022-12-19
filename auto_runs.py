@@ -10,7 +10,6 @@ import time as t
 
 # Checking if initial ranking has been done
 dir_path = os.path.dirname(os.path.realpath(__file__))
-
 if 'words_ranked.txt' not in os.listdir(dir_path):
     tl.write_1st_guess()    
 
