@@ -5,18 +5,24 @@ import tools as tl
 class Shortlist:
     """Class representing an updatable shortlist of guesses."""
     def __init__(self):
+        # Initial untouched values 
         self.words = []
         self.words_splitted = []
         self.scores = []
-    
-        self.temp_words = []
+
+        # Temporary variables, updatable
+        self.temp_words = [] 
         self.temp_words_splitted = []
         self.temp_scores = []
-        self.temp_grey_letters = {} #dictionary letter , places where they're not.
-        self.temp_green_letters = {} #dictionary numb letter, letter
-        self.temp_yellow_letters = {} #dictionary letter , places where they're not.
+
+        # Knowledge from Wordle hints, dictionaries (letter, list of places).
+        self.temp_grey_letters = {} 
+        self.temp_green_letters = {} 
+        self.temp_yellow_letters = {}
     
     def reset_all_temp(self):
+        '''None ---> None. 
+        Resets all temp_ self.variables to their value before starting guesses.'''
         self.temp_grey_letters = {}
         self.temp_green_letters = {}
         self.temp_yellow_letters = {}
@@ -25,7 +31,9 @@ class Shortlist:
         self.temp_scores = self.scores
 
     def best_guess(self, print_ = False):
-        '''print best suggestion'''
+        ''' None ---> None.
+        Returns the word with the best score in the temp_words shortlist.
+        Prints the result if print_ = True.'''
         if len(self.temp_words)>0:
             temp = self.temp_words[0]
             if print_:
@@ -33,7 +41,8 @@ class Shortlist:
             return temp
 
     def print_top(self):
-        '''Top 9 suggestions'''    
+        ''' None ---> None.
+        Prints the 9 words with the best scores in the temp_words shortlist.'''    
         print('----------------------------------')
         print('| Suggestions |   Score   | Rank |')
         print('----------------------------------')
@@ -41,7 +50,8 @@ class Shortlist:
             print('|    '+self.temp_words[i]+ '    |  '+'{:.4f}'.format(self.temp_scores[i])+'  |   '+str(i+1)+'  |' )
 
     def read_1st_guess(self):
-        '''Reads our work from score.py'''
+        '''None ---> None.
+        Reads words_ranked.txt's initial scoring and assigns it to initial variables.'''
         tab= np.loadtxt('words_ranked.txt',dtype='str')
         self.words = tab[:,0]
         self.temp_words = self.words
@@ -51,7 +61,9 @@ class Shortlist:
         self.temp_words_splitted = self.words_splitted
 
     def intersection_grey(self):
-        '''use temp_grey_letters to update temp_words'''
+        '''None ---> None.
+        Updates the shortlist in temp_words from temp_grey_letters.
+        Words with the grey letters are removed from the shortlist.'''
         Truth = 0
         for letter in self.temp_grey_letters:
             temp = (self.temp_words_splitted == letter)            
@@ -67,7 +79,9 @@ class Shortlist:
         self.temp_scores = self.temp_scores[Truth]
 
     def intersection_green(self):
-        '''use temp_green_letters to update temp_words'''
+        '''None ---> None.
+        Updates the shortlist in temp_words from temp_green_letters.
+        Only words with the green letters at the right spots are kept in the shortlist.'''
         Truth = 1
         for letter, positions in self.temp_green_letters.items():
             for pos in positions:
@@ -77,7 +91,9 @@ class Shortlist:
         self.temp_scores = self.temp_scores[Truth]
 
     def intersection_yellow(self):
-        '''use temp_yellow_letters to update temp_words''' 
+        '''None ---> None.
+        Updates the shortlist in temp_words from temp_yellow_letters.
+        Only words with the yellow letters at the right spots are kept in the shortlist.'''
         Truth = 1
         for letter in self.temp_yellow_letters: 
             #it is somewhere else but not where green or grey is          
@@ -107,12 +123,15 @@ class Shortlist:
         self.temp_scores = self.temp_scores[Truth]
 
     def clear_temp_letters(self):
+        '''None ---> None.
+        Clears temporary letter variables.'''
         self.temp_grey_letters = {}
         self.temp_green_letters = {}
         self.temp_yellow_letters = {}
 
     def new_temp(self, word, output):
-        '''define new temp var'''
+        '''(str,str)--->None.
+        From a given word and its Wordle output, assigns letters to their dictionnary (g,y or -).'''
         self.clear_temp_letters()
         for i in range(5):
             if output[i]=='-':
@@ -133,7 +152,8 @@ class Shortlist:
 
 
     def shorting_from_output(self,word,output):
-        ''' read someting like 'women' and '-yg-y' '''
+        '''(str,str)--->None.
+        From a given word and its Wordle output, completes the update of the shortlist.'''
         self.new_temp(word,output)
         if self.temp_green_letters != {}:
             self.intersection_green()
@@ -143,6 +163,8 @@ class Shortlist:
             self.intersection_yellow()
     
     def update_scoring(self):
+        '''None ---> None.
+        Updates the scores with a scoring on the shortlist rather than on the full dictionnary.'''
         self.temp_words, self.temp_words_splitted, self.temp_scores = tl.rank_words(self.temp_words,self.temp_words_splitted)
 
 
