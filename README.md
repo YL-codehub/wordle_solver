@@ -1,8 +1,13 @@
 #  Wordle Solving Assistant #
 
+* * This file uses GitHub's Readme files syntax. Read it in the original repository online for a better experience. * *
+
 ## Motivation
 
-[Wordle](https://wordlegame.org/uk) han 3,000 words describing the project and its development; including , testing, profiling etc...
+[Wordle](https://wordlegame.org/uk) is a simple game based on a finite dictionnary of words with 5 letters. With the hints provided for each letter of each word guess one can converge to the right word, theoretically in a finite number of guesses, in practice sometimes with less than 6 guesses.
+
+The motivation of this project is to provide a tool that, from the knowledge of the whole dictionnary, provides better guesses than a human and if possible below 6 guesses for most cases.
+
 Contents (optional)
 
 ## Installation
@@ -34,12 +39,16 @@ python3 main.py
 prototyping and describing functions
 ### main.py 
 
-## Testing
-
+## Testing and Continuous Integration
+Unit tests, assert? pytest?
 
 ## Performances
+time and guesses, cf autoruns
+
+profiling ?see optimisation course.
 
 ## Version status & open problems
+not completely solved; among words with one letter of difference, algorithm probably uses the most common one. 
 
 
 --------------------------------------------------------------------------------
