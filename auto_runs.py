@@ -1,5 +1,6 @@
-'''Run the solver against all words of the dictionnary and evaluates performances.'''
+'''Run the solver against all words of the 5-words dictionnary and evaluates performances.'''
 
+# Packages and libraries
 import numpy as np
 import shortlist as st
 import game as ga
@@ -7,13 +8,16 @@ import tools as tl
 import os
 import time as t
 
+# Checking if initial ranking has been done
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 if 'words_ranked.txt' not in os.listdir(dir_path):
     tl.write_1st_guess()    
 
+# Scoring at each guess or not
 continuous_scoring = False
 
+# Initialization
 short_list = st.Shortlist()
 short_list.read_1st_guess()
 
@@ -22,19 +26,29 @@ number_iterations = []
 population_per_number_iteration = 20*[0]
 time_per_guess = []
 
+# Test solver for each word of the dictionnary
 for secret_word in short_list.words:
     wordle = ga.Wordle()
     wordle.word = secret_word
     short_list.reset_all_temp()
     algo_word = short_list.best_guess()
     iter = 0
+    # Ask for guesses until solver succeeds 
     while algo_word != secret_word:
+        
+        # use local implementation of wordle to evaluate the guess
         output = wordle.evaluate_guess(algo_word)
         tempo = t.time()
+        
+        # update the solver's shortlist given Wordle's hints output
         short_list.shorting_from_output(algo_word,output)
         time_per_guess.append(t.time()-tempo)
+
+        # if continous scoring, update the scoring
         if len(short_list.temp_words)>0 and continuous_scoring == True:
             short_list.update_scoring() 
+        
+        # increment analytics
         algo_word = short_list.best_guess()
         iter+=1
     number_iterations.append(iter)
@@ -55,7 +69,7 @@ for i, el in enumerate(population_per_number_iteration):
 
 print('Average time per guess :', '{:.5f}'.format(np.mean(time_per_guess)),' seconds.')
 
-# 5e-4 seconds.
+# 5e-4 seconds vs more for continuous scoring.
 
 
 '''Yoann Launay, University of Cambridge, 12/22.'''

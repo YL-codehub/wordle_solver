@@ -47,11 +47,15 @@ def word_scorer(words, words_split, diversity = True):
     return np.sum(vec_alphabet_scorer(words_split,score_letters),axis=1)/d 
 
 def rank_words(words,words_split):
+    '''(list of str, np.arr of char) ---> (np.array of str, np.array of chr, np.array of float)
+    Uses word_scorer to rank words and their splits.
+    Returns them from best guess to worst, i.e. lowest score to highest.'''
     scores = word_scorer(words,words_split)
     scores_arg_sort = np.argsort(scores)
     return words[scores_arg_sort], words_split[scores_arg_sort], scores[scores_arg_sort]
 
 def write_1st_guess():
+    '''Calculates the ranking from 'words.txt', given rank_words function and writes it in the 'words_ranked.txt' file for later use.'''
     words = np.loadtxt('words.txt',dtype='str')
     words_split = split_in_array(words)
     words, words_split, scores = rank_words(words, words_split)
