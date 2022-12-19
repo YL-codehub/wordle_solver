@@ -64,16 +64,21 @@ class Shortlist:
         '''None ---> None.
         Updates the shortlist in temp_words from temp_grey_letters.
         Words with the grey letters are removed from the shortlist.'''
+        # Initialize selection boolean array
         Truth = 0
         for letter in self.temp_grey_letters:
             temp = (self.temp_words_splitted == letter)            
+            # If the letter is also a green or yellow letter
             if letter in self.temp_green_letters:
-                temp[:,self.temp_green_letters[letter]] *= False # so that we don't check columns where there is a green.
+                # We don't study columns where there is a detected green.
+                temp[:,self.temp_green_letters[letter]] *= False 
             if letter in self.temp_yellow_letters:
-                return() # so that we don't check where there is a yellow, will be handled in yellow intersection.
+                #  We study columns where there is a detected yellow but in intersection_yellow.
+                return() 
             Truth +=  temp
-        Or = np.sum(Truth,axis = 1)
-        Truth = (Or == 0)
+        Or = np.sum(Truth,axis = 1) # number of found grey letters per word 
+        Truth = (Or == 0) # keep only those without any
+        # Update temp arrays by using numpy selection
         self.temp_words = self.temp_words[Truth]
         self.temp_words_splitted = self.temp_words_splitted[Truth]
         self.temp_scores = self.temp_scores[Truth]
@@ -82,10 +87,14 @@ class Shortlist:
         '''None ---> None.
         Updates the shortlist in temp_words from temp_green_letters.
         Only words with the green letters at the right spots are kept in the shortlist.'''
+        # Initialize selection boolean array
         Truth = 1
+        # Each word of the shortlist has to have the green letters at the right places
+        # No need for extra considerations if doublons
         for letter, positions in self.temp_green_letters.items():
             for pos in positions:
                 Truth = np.logical_and(Truth, self.temp_words_splitted[:,pos] == letter)
+        # Update temp arrays by using numpy selection
         self.temp_words = self.temp_words[Truth]
         self.temp_words_splitted = self.temp_words_splitted[Truth]
         self.temp_scores = self.temp_scores[Truth]
@@ -94,9 +103,12 @@ class Shortlist:
         '''None ---> None.
         Updates the shortlist in temp_words from temp_yellow_letters.
         Only words with the yellow letters at the right spots are kept in the shortlist.'''
+        # Initialize selection boolean array
         Truth = 1
         for letter in self.temp_yellow_letters: 
-            #it is somewhere else but not where green or grey is          
+            # If the letter is yellow and has a doublon, the selection array must not use those columns for selection
+            # cols = indices excluding columns with this letter
+            # cols2 = indices excluding columns with this letter as green or grey only       
             if letter in self.temp_green_letters:
                 cols = list(set(range(0,5))-set(self.temp_yellow_letters[letter])-set(self.temp_green_letters[letter])) 
                 cols2 = list(set(self.temp_yellow_letters[letter])-set(self.temp_green_letters[letter]))
@@ -107,17 +119,21 @@ class Shortlist:
                 cols = list(set(range(0,5))-set(self.temp_yellow_letters[letter]))
                 cols2 = self.temp_yellow_letters[letter]
 
+            # We select words where columns without the identified doublon and yellow column have the yellow letter
             auxTruth = (self.temp_words_splitted[:,cols] == letter)
             Or = np.sum(auxTruth, axis = 1)
-            auxTruth = (Or > 0 ) #only one in total
+            auxTruth = (Or > 0 ) 
 
+            # We select words where the yellow letter is not at the input spot
             auxTruth2 = (self.temp_words_splitted[:,cols2]==letter)
             Or2 = np.sum(auxTruth2, axis = 1)
             auxTruth2 = (Or2 == 0)
 
+            # We intersect the two boolean array
             Truth = np.logical_and(Truth, auxTruth)
             Truth = np.logical_and(Truth, auxTruth2)
 
+        # Update temp arrays by using numpy selection
         self.temp_words = self.temp_words[Truth]
         self.temp_words_splitted = self.temp_words_splitted[Truth]
         self.temp_scores = self.temp_scores[Truth]
@@ -144,7 +160,7 @@ class Shortlist:
                     self.temp_green_letters[word[i]].append(i)
                 else:
                     self.temp_green_letters[word[i]]= [i]
-            else: #yellow case
+            else:
                 if word[i] in self.temp_yellow_letters:
                     self.temp_yellow_letters[word[i]].append(i)
                 else:
@@ -155,6 +171,7 @@ class Shortlist:
         '''(str,str)--->None.
         From a given word and its Wordle output, completes the update of the shortlist.'''
         self.new_temp(word,output)
+        # Green, grey, yellow order is important as explained in interesection_ functions
         if self.temp_green_letters != {}:
             self.intersection_green()
         if self.temp_grey_letters != {}:
@@ -164,7 +181,8 @@ class Shortlist:
     
     def update_scoring(self):
         '''None ---> None.
-        Updates the scores with a scoring on the shortlist rather than on the full dictionnary.'''
+        Updates the scores with a scoring on the shortlist rather than on the full dictionnary.
+        See tools.rank_words.'''
         self.temp_words, self.temp_words_splitted, self.temp_scores = tl.rank_words(self.temp_words,self.temp_words_splitted)
 
 

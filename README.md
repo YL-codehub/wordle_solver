@@ -1,6 +1,4 @@
-############################
 #  Wordle-assistant-solver #
-############################
 
 Motivation
 ----------
@@ -37,11 +35,14 @@ Performances
 Version status
 --------------
 
+--------------------------------------------------------------------------------
+
 Yoann Launay, University of Cambridge.
 Dec 2022.
 
 --------------------------------------------------------------------------------
 *Original game:
 https://wordlegame.org/uk
+
 *Installation:  
 https://www.docker.com/get-started/
