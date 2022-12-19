@@ -12,21 +12,21 @@ You can either create the associated environment or create a container with Dock
 
 Docker*:
 - In the wordle_solver directory; creates a docker image from the Dockerfile:
-'''
+```
 docker build -t python36_and_numpy . 
-'''
+```
 - Promote the image to a container:
-'''
+```
 docker run -d -t --name=wordle_container python36_and_numpy 
-'''
+```
 - Access your container in a bash terminal:
-'''
+```
 docker exec -ti wordle_container bash
-'''
+```
 - Run your files that have been copied into the home repertory
-'''
+```
 python3 main.py
-'''
+```
 Features
 --------
 
