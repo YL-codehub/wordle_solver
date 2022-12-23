@@ -1,6 +1,6 @@
-#  Wordle Solving Assistant #
+#  Wordle Solving Assistant 
 
-**This file uses GitHub's Readme files syntax. Read it in the original repository online for a better experience.**
+* *This file uses GitHub's Readme files syntax. Read it in the original repository online for a better experience.* *
 
 ## Motivation
 
@@ -10,7 +10,7 @@ The motivation of this project is to provide a tool that, from the knowledge of 
 
 ## Installation
 
-This project has been written using Python 3.8 and numpy 1.23 only. However the code passes continuous integration tests from at least 3.6 to 3.10. To execute line and memory profiling yourself (see section below), you'll need to install [pyinstrument](https://github.com/joerick/pyinstrument) line profiler and [pympler](https://pympler.readthedocs.io/en/latest/#) memory profiler.
+This project has been written using Python 3.8 and numpy 1.23 only. However the code passes continuous integration tests from at least 3.6 to 3.10. To execute line and memory profiling yourself (see section below), you'll need to install [* *pyinstrument* *](https://github.com/joerick/pyinstrument) line profiler and [* *pympler* *](https://pympler.readthedocs.io/en/latest/#) memory profiler.
 
 To install those dependencies, you can create the associated environment and use in a terminal:
 ```
@@ -39,38 +39,41 @@ python3 main.py
 The Dockerfile is set for a Python 3.6 version: you can change it to a more recent one if needed.
 
 ## Features & Construction
+### Construction philosophy
 Thinking the construction of this project was based on the following recquirements:
-
 >- Suggesting a first guess
 >- Suggesting subsequent guesses based on the response until it can correctly guess the word.
->- Your version doesn't not have to be limited to 6 guesses but can continue until the puzzle is solved.
+>- Version doesn't not have to be limited to 6 guesses but can continue until the puzzle is solved.
 >- Should be able to be run in batch (where the correct word is provided as an input) or interactively with the user providing the guess and response
->- Be version controled and connected to some hosting site (public or private) with README and Licence files.
->- Be Modular, clearly written with sensible variable names and contain documentation
->- Contain unit tests and linked to some continuous integration framework to run them automatically
->- Be performant (ie: the interactive version works on human timescales, so a maximum of 1-2 seconds to generate a guess)
->- Be portable, so both code and enviroment can be replicated on other machines, ie using Docker.
+>- The official list of all 5 letter words that wordle accepts is provided.
+>- Being version controled and connected to some hosting site (public or private) with README and Licence files.
+>- Being Modular, clearly written with sensible variable names and contain documentation
+>- Containing unit tests and linked to some continuous integration framework to run them automatically
+>- Being performant (ie: the interactive version works on human timescales, so a maximum of 1-2 seconds to generate a guess)
+>- Being portable, so both code and enviroment can be replicated on other machines, ie using Docker.
 
-
-### Construction philosophy
-blabla, invention process.
+In this context, the 1st guess has been implemented independently and raised the necessity of a word scoring library. After that, the continuous shortlisting has been encoded into an exhaustive class. The 3rd step was then to implement the interaction with the user and testing on a few words with wordle in parallel on the navigator. Finally, the test against all words has been implemented by implementing wordle outputs and avoid the human interface between the solver and the game. 
 
 ### Files summary
-
+In addition to files and functions being all documented and steps being explained when necessary, general comments for each file of the repository are provided in the following.
 #### main.py 
+As its name suggests, this file is the file to run to start interacting with the solver. It loops until the user decides to exit this elementary bash interface. At each step, a top guesses list is proposed thanks to * *shortlist.py* * and ask for the user's choice and the output of wordle for this guess. For each wordle output given to * *main.py* *, the shorlist is updated with those hints.
 #### shortlist.py
+This file contains the Shorlist class with all methods that allow to use hints from wordle output to shorten the shortlist. Some methods also use the scoring library * *tools.py* *. This file is the heart of the solver.
 #### tools.py
+This is a simple and short library of secondary functions that allow splitting arrays of words into letters, ranking letters w.r.t their appearances, ranking words as potential guesses w.r.t to their diversity or their letters or writing the first ranking etc. 
 #### game.py
+It contains the Wordle class; a class that allows to re-create the hint outputs of the original game given a guess and without using any API to connect online. It uses the exact same rules and has been tested successfully many times. As explained below, the success of * *auto_runs.py* * is a strongly suggesting its correctness. 
 #### auto_runs.py
-This is the only file that requires your modifications.
+This code runs the solver against all words of the 5-words dictionary (* *words.txt* *). For each secret word, the code won't stop until equality with the solver's guess or until reaching 16 guesses (as 15 has been found to be the worst case). If more than 16 guesses are needed for a given secret word, an error will be raised. Different time and memory performances are implemented; line and memory profiling can be turned on by setting their Boolean variables to * *True* * at the start of the file. 
 
 ## Testing and Continuous Integration
 blabla.
 
 ## Performances
-Since **auto_runs.py** is using all components of our work, it is relevant to apply time, line and memory profiling there. We chose to use [pyinstrument](https://github.com/joerick/pyinstrument) and [pympler](https://pympler.readthedocs.io/en/latest/#) and also simple timers with the native **time** package.
+Since * *auto_runs.py* * is using all components of our work, it is relevant to apply time, line and memory profiling there. We chose to use [* *pyinstrument* *](https://github.com/joerick/pyinstrument) and [* *pympler* *](https://pympler.readthedocs.io/en/latest/#) and also simple timers with the native * *time* * package.
 
-An example of output from **auto_runs.py** with profilers all turned on:
+An example of output from * *auto_runs.py* * with profilers all turned on:
 ```
 Average number of guesses : 3.980690507453464
 Number of words for each performance :
@@ -137,6 +140,10 @@ Memory profiling:
            getset_descriptor |         976 |     68.62 KB
 --------------------------------------------------------------
 ```
+### Overall time performance
+### Time performance per line
+### Memory use performance
+
 ## Version status & open problems
 The current repository is the original version of the code (v0). Hereby, the author states that there won't be any more releases for future updates from himself starting from 1/1/23. 
 
