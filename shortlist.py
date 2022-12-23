@@ -55,7 +55,7 @@ class Shortlist:
         tab= np.loadtxt('words_ranked.txt',dtype='str')
         self.words = tab[:,0]
         self.temp_words = self.words
-        self.scores = tab[:,1].astype(np.float)
+        self.scores = tab[:,1].astype(float)
         self.temp_scores = self.scores
         self.words_splitted = tl.split_in_array(self.words)
         self.temp_words_splitted = self.words_splitted
