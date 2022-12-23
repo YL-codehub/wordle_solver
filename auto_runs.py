@@ -8,6 +8,16 @@ import tools as tl
 import os
 import time as t
 
+# Profilers, turn it off if necessary
+profiling = True
+memory_profiling = True
+
+# Line profiling starts if True
+if profiling:
+    from pyinstrument import Profiler
+    profiler = Profiler(interval=0.00001)
+    profiler.start()
+
 # Checking if initial ranking has been done
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if 'words_ranked.txt' not in os.listdir(dir_path):
@@ -52,6 +62,19 @@ for secret_word in short_list.words:
         iter+=1
     number_iterations.append(iter)
     population_per_number_iteration[iter]+=1
+print('--------------------------------------------------------------')
+
+if profiling:
+    profiler.stop()
+    profiler.print()
+    print('--------------------------------------------------------------')
+
+if memory_profiling:
+    from pympler import summary, muppy
+    allObjects = muppy.get_objects()
+    sum = summary.summarize(allObjects)
+    summary.print_(sum)
+    print('--------------------------------------------------------------')
 
 print('Average number of guesses :', np.mean(number_iterations))
 

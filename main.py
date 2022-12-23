@@ -9,7 +9,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 if 'words_ranked.txt' not in os.listdir(dir_path):
     tl.write_1st_guess()    
 
-continuous_scoring = True
+continuous_scoring = False
 
 short_list = st.Shortlist()
 short_list.read_1st_guess()
@@ -23,6 +23,5 @@ while input_user_choice != '':
         short_list.update_scoring() 
     short_list.print_top() 
     input_user_choice = input('What is your chosen guess? (Press enter to exit)')
-
 
 '''Yoann Launay, University of Cambridge, 12/22.'''

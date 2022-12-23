@@ -4,11 +4,10 @@
 
 ## Motivation
 
-[Wordle](https://wordlegame.org/uk) is a simple game based on a finite dictionnary of words with 5 letters. With the hints provided for each letter of each word guess one can converge to the right word, theoretically in a finite number of guesses, in practice sometimes with less than 6 guesses.
+[Wordle](https://wordlegame.org/uk) is a simple game based on a finite dictionnary of words with 5 letters. With the hints provided for each letter of each word guess, one can converge to the right word, theoretically in a finite number of guesses, in practice sometimes with less than 6 guesses.
 
 The motivation of this project is to provide a tool that, from the knowledge of the whole dictionnary, provides better guesses than a human and if possible below 6 guesses for most cases.
 
-Contents (optional)
 
 ## Installation
 
