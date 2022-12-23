@@ -30,4 +30,4 @@ jobs:
           pip install -r docker_requirements.txt
       - name: Test files
         run: |
-          python3 test_game.py
+          python3 tests.py

@@ -8,9 +8,9 @@ import tools as tl
 import os
 import time as t
 
-# Profilers, turn it off if necessary
-profiling = True
-memory_profiling = True
+# Profilers, turn it on/off depending on your needs
+profiling = False
+memory_profiling = False
 
 # Line profiling starts if True
 if profiling:
@@ -60,6 +60,8 @@ for secret_word in short_list.words:
         # increment analytics
         algo_word = short_list.best_guess()
         iter+=1
+        if iter>=16:
+            raise ValueError("Number of max necessary guesses is more than v0's.")
     number_iterations.append(iter)
     population_per_number_iteration[iter]+=1
 
