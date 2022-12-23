@@ -9,11 +9,11 @@ import os
 import time as t
 
 # Profilers, turn it on/off depending on your needs
-profiling = False
+line_profiling = False
 memory_profiling = False
 
 # Line profiling starts if True
-if profiling:
+if line_profiling:
     from pyinstrument import Profiler
     profiler = Profiler(interval=0.00001)
     profiler.start()
@@ -32,7 +32,7 @@ short_list.read_1st_guess()
 
 number_words = len(short_list.words)
 number_iterations = []
-population_per_number_iteration = 20*[0]
+population_per_number_iteration = 17*[0]
 time_per_guess = []
 
 # Test solver for each word of the dictionnary
@@ -60,13 +60,13 @@ for secret_word in short_list.words:
         # increment analytics
         algo_word = short_list.best_guess()
         iter+=1
-        if iter>=16:
+        if iter>16:
             raise ValueError("Number of max necessary guesses is more than v0's.")
     number_iterations.append(iter)
     population_per_number_iteration[iter]+=1
 
 print('--------------------------------------------------------------')
-if profiling:
+if line_profiling:
     profiler.stop()
     print('Line profiling:')
     profiler.print()
