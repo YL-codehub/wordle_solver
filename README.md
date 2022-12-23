@@ -43,50 +43,6 @@ Unit tests, assert? pytest?
 
 ## Performances
 ```
---------------------------------------------------------------
-
-  _     ._   __/__   _ _  _  _ _/_   Recorded: 10:24:59  Samples:  556308
- /_//_/// /_\ / //_// / //_'/ //     Duration: 35.374    CPU time: 35.360
-/   _/                      v3.4.2
-
-Program: auto_runs.py
-
-35.374 <module>  auto_runs.py:1
-├─ 34.076 shorting_from_output  shortlist.py:170
-│  ├─ 23.222 intersection_grey  shortlist.py:63
-│  │  ├─ 20.536 [self]
-│  │  └─ 2.686 sum  <__array_function__ internals>:2
-│  │        [18 frames hidden]  <__array_function__ internals>, numpy...
-│  ├─ 7.215 intersection_yellow  shortlist.py:102
-│  │  ├─ 5.177 [self]
-│  │  └─ 2.039 sum  <__array_function__ internals>:2
-│  │        [18 frames hidden]  <__array_function__ internals>, numpy...
-│  └─ 3.326 intersection_green  shortlist.py:86
-│     └─ 3.323 [self]
-├─ 0.555 evaluate_guess  game.py:12
-│  └─ 0.547 [self]
-└─ 0.429 [self]
-
-
---------------------------------------------------------------
-                       types |   # objects |   total size
-============================ | =========== | ============
-                         str |     2260287 |    280.71 MB
-                        list |      557084 |     61.96 MB
-                       tuple |      561069 |     34.25 MB
-                       float |      607980 |     13.92 MB
-                        dict |        5116 |      2.17 MB
-                        code |        6377 |    900.05 KB
-                        type |         959 |    773.16 KB
-               numpy.ndarray |          45 |    358.82 KB
-                         set |         750 |    234.06 KB
-          wrapper_descriptor |        2134 |    166.72 KB
-                     weakref |        1623 |    126.80 KB
-           method_descriptor |        1331 |     93.59 KB
-                 abc.ABCMeta |          89 |     86.82 KB
-  builtin_function_or_method |        1226 |     86.20 KB
-           getset_descriptor |         976 |     68.62 KB
---------------------------------------------------------------
 Average number of guesses : 3.980690507453464
 Number of words for each performance :
 Guesses to solve | % Words  | Cumulated %
@@ -110,7 +66,47 @@ Guesses to solve | % Words  | Cumulated %
         17           0.00        100.00
         18           0.00        100.00
         19           0.00        100.00
+Average time per guess : 0.00061  seconds.
+--------------------------------------------------------------
+Line profiling:
 
+  _     ._   __/__   _ _  _  _ _/_   Recorded: 10:38:22  Samples:  511599
+ /_//_/// /_\ / //_// / //_'/ //     Duration: 32.576    CPU time: 32.549
+/   _/                      v3.4.2
+│  ├─ 21.184 intersection_grey  shortlist.py:63
+│  │  ├─ 19.086 [self]
+│  │  └─ 2.098 sum  <__array_function__ internals>:2
+│  │        [18 frames hidden]  <__array_function__ internals>, numpy...
+│  ├─ 6.803 intersection_yellow  shortlist.py:102
+│  │  ├─ 5.063 [self]
+│  │  └─ 1.740 sum  <__array_function__ internals>:2
+│  │        [18 frames hidden]  <__array_function__ internals>, numpy...
+│  └─ 3.123 intersection_green  shortlist.py:86
+│     └─ 3.121 [self]
+└─ 0.696 evaluate_guess  game.py:12
+   └─ 0.690 [self]
+
+
+--------------------------------------------------------------
+Memory profiling:
+                       types |   # objects |   total size
+============================ | =========== | ============
+                         str |     2054203 |    255.88 MB
+                        list |      512375 |     56.58 MB
+                       tuple |      516360 |     31.53 MB
+                       float |      563271 |     12.89 MB
+                        dict |        5116 |      2.17 MB
+                        code |        6377 |    900.05 KB
+                        type |         959 |    773.16 KB
+               numpy.ndarray |          45 |    358.82 KB
+                         set |         750 |    234.06 KB
+          wrapper_descriptor |        2134 |    166.72 KB
+                     weakref |        1623 |    126.80 KB
+           method_descriptor |        1331 |     93.59 KB
+                 abc.ABCMeta |          89 |     86.82 KB
+  builtin_function_or_method |        1226 |     86.20 KB
+           getset_descriptor |         976 |     68.62 KB
+--------------------------------------------------------------
 ```
 ## Version status & open problems
 not completely solved; among words with one letter of difference, algorithm probably uses the most common one. 
