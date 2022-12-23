@@ -9,8 +9,8 @@ import os
 import time as t
 
 # Profilers, turn it on/off depending on your needs
-profiling = True
-memory_profiling = True
+profiling = False
+memory_profiling = False
 
 # Line profiling starts if True
 if profiling:
