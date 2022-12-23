@@ -1,6 +1,6 @@
 #  Wordle Solving Assistant #
 
-* * This file uses GitHub's Readme files syntax. Read it in the original repository online for a better experience. * *
+* * This file uses GitHub's Readme files syntax. Read it in the original repository online for a better experience.
 
 ## Motivation
 
@@ -8,10 +8,9 @@
 
 The motivation of this project is to provide a tool that, from the knowledge of the whole dictionnary, provides better guesses than a human and if possible below 6 guesses for most cases.
 
-
 ## Installation
 
-This project has been written with Python 3.8 and numpy 1.23 only. Any updated version of those packages should work but the author advises not to take it for granted.
+This project has been written with Python 3.8 and numpy 1.23 only. Any updated version of those packages should work: continuous integration works for 3.6 versions to 3.8.
 You can either create the associated environment or create a container with Docker (see below).
 
 [Docker](https://www.docker.com/get-started/):
