@@ -65,6 +65,20 @@ for secret_word in short_list.words:
     number_iterations.append(iter)
     population_per_number_iteration[iter]+=1
 
+print('--------------------------------------------------------------')
+if profiling:
+    profiler.stop()
+    print('Line profiling:')
+    profiler.print()
+    print('--------------------------------------------------------------')
+
+if memory_profiling:
+    from pympler import summary, muppy
+    print('Memory profiling:')
+    allObjects = muppy.get_objects()
+    sum = summary.summarize(allObjects)
+    summary.print_(sum)
+    print('--------------------------------------------------------------')
 
 print('Average number of guesses :', np.mean(number_iterations))
 
@@ -82,22 +96,5 @@ for i, el in enumerate(population_per_number_iteration):
 print('Average time per guess :', '{:.5f}'.format(np.mean(time_per_guess)),' seconds.')
 
 # 5e-4 seconds vs more for continuous scoring.
-
-print('--------------------------------------------------------------')
-if profiling:
-    profiler.stop()
-    print('Line profiling:')
-    profiler.print()
-    print('--------------------------------------------------------------')
-
-if memory_profiling:
-    from pympler import summary, muppy
-    print('Memory profiling:')
-    allObjects = muppy.get_objects()
-    sum = summary.summarize(allObjects)
-    summary.print_(sum)
-    print('--------------------------------------------------------------')
-
-
 
 '''Yoann Launay, University of Cambridge, 12/22.'''
