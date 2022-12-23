@@ -1,6 +1,6 @@
 #  Wordle Solving Assistant #
 
-* * This file uses GitHub's Readme files syntax. Read it in the original repository online for a better experience.
+**This file uses GitHub's Readme files syntax. Read it in the original repository online for a better experience.**
 
 ## Motivation
 
@@ -10,9 +10,9 @@ The motivation of this project is to provide a tool that, from the knowledge of 
 
 ## Installation
 
-This project has been written using Python 3.8 and numpy 1.23 only. However the code passes continuous integration tests from at least 3.6 to 3.10. To execute line and memory profiling yourself (see section below), you'll need to install [**pyinstrument**](https://github.com/joerick/pyinstrument) line profiler and **pympler**(https://pympler.readthedocs.io/en/latest/#) memory profiler.
+This project has been written using Python 3.8 and numpy 1.23 only. However the code passes continuous integration tests from at least 3.6 to 3.10. To execute line and memory profiling yourself (see section below), you'll need to install [pyinstrument](https://github.com/joerick/pyinstrument) line profiler and [pympler](https://pympler.readthedocs.io/en/latest/#) memory profiler.
 
-To install those dependencies, you can create the associated environment and use in a terminal
+To install those dependencies, you can create the associated environment and use in a terminal:
 ```
 pip3 install [package]
 ```
@@ -20,15 +20,13 @@ for numpy, pyinstrument and pympler.
 
 Alternatively you can create a container with Docker from the provided Dockerfile (see below).
 
-[Docker](https://www.docker.com/get-started/):
-
-In a terminal, in the wordle_solver directory, create a docker image (e.g. called python36_and_numpy) from the Dockerfile:
+[Docker](https://www.docker.com/get-started/): in a terminal, in the wordle_solver directory, create a docker image (e.g. called python36_wordle) from the Dockerfile:
 ```
-docker build -t python36_and_numpy . 
+docker build -t python36_wordle . 
 ```
 Promote the image to a container (e.g. called wordle_container):
 ```
-docker run -d -t --name=wordle_container python36_and_numpy 
+docker run -d -t --name=wordle_container python36_wordle 
 ```
 Access your container in a bash terminal:
 ```
@@ -38,10 +36,22 @@ Run your files that have been copied into the home repertory:
 ```
 python3 main.py
 ```
+The Dockerfile is set for a Python 3.6 version: you can change it to a more recent one if needed.
 
 ## Features & Construction
+Thinking the construction of this project was based on the following recquirements:
 
-prototyping and describing functions
+>- Suggesting a first guess
+>- Suggesting subsequent guesses based on the response until it can correctly guess the word.
+>- Your version doesn't not have to be limited to 6 guesses but can continue until the puzzle is solved.
+>- Should be able to be run in batch (where the correct word is provided as an input) or interactively with the user providing the guess and response
+>- Be version controled and connected to some hosting site (public or private) with README and Licence files.
+>- Be Modular, clearly written with sensible variable names and contain documentation
+>- Contain unit tests and linked to some continuous integration framework to run them automatically
+>- Be performant (ie: the interactive version works on human timescales, so a maximum of 1-2 seconds to generate a guess)
+>- Be portable, so both code and enviroment can be replicated on other machines, ie using Docker.
+
+
 ### Construction philosophy
 blabla, invention process.
 
@@ -58,7 +68,7 @@ This is the only file that requires your modifications.
 blabla.
 
 ## Performances
-Since **auto_runs.py** is using all components of our work, it is relevant to apply time, line and memory profiling there. We chose to use [**pyinstrument**](https://github.com/joerick/pyinstrument) and [**pympler**](https://pympler.readthedocs.io/en/latest/#) and also simple timers with the native **time** package.
+Since **auto_runs.py** is using all components of our work, it is relevant to apply time, line and memory profiling there. We chose to use [pyinstrument](https://github.com/joerick/pyinstrument) and [pympler](https://pympler.readthedocs.io/en/latest/#) and also simple timers with the native **time** package.
 
 An example of output from **auto_runs.py** with profilers all turned on:
 ```
