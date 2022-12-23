@@ -18,7 +18,7 @@ pip3 install [package]
 ```
 for numpy, pyinstrument and pympler.
 
-Alternatively you can create a container with Docker from the provided Dockerfile (see below).
+Alternatively you can create a container with Docker from the provided Dockerfile (see below) which contains all the necessary packages.
 
 [Docker](https://www.docker.com/get-started/): in a terminal, in the wordle_solver directory, create a docker image (e.g. called python36_wordle) from the Dockerfile:
 ```
@@ -52,7 +52,7 @@ Thinking the construction of this project was based on the following recquiremen
 >- Being performant (ie: the interactive version works on human timescales, so a maximum of 1-2 seconds to generate a guess)
 >- Being portable, so both code and enviroment can be replicated on other machines, ie using Docker.
 
-In this context, the 1st guess has been implemented independently and raised the necessity of a word scoring library. After that, the continuous shortlisting has been encoded into an exhaustive class. The 3rd step was then to implement the interaction with the user and testing on a few words with wordle in parallel on the navigator. Finally, the test against all words has been implemented by implementing wordle outputs and avoid the human interface between the solver and the game. 
+In this context, the 1st guess has been implemented independently and raised the necessity of a word scoring library. After that, the continuous shortlisting has been encoded into an exhaustive class. The 3rd step was then to implement the interaction with the user and testing on a few words with wordle in parallel on the navigator. Finally, the test against all words has been implemented by implementing wordle outputs to avoid the human interface between the solver and the game. 
 
 ### Files summary
 In addition to files and functions being all documented and steps being explained when necessary, general comments for each file of the repository are provided in the following.
@@ -68,7 +68,9 @@ It contains the Wordle class; a class that allows to re-create the hint outputs 
 This code runs the solver against all words of the 5-words dictionary (_words.txt_). For each secret word, the code won't stop until equality with the solver's guess or until reaching 16 guesses (as 15 has been found to be the worst case). If more than 16 guesses are needed for a given secret word, an error will be raised. Different time and memory performances are implemented; line and memory profiling can be turned on by setting their Boolean variables to _True_ at the start of the file. 
 
 ## Testing and Continuous Integration
-blabla.
+In addition to multiple unit tests of each function and module and to many games successfully played, the successful execution of _auto_runs.py_ is a strong proof of the validity of this code: all words can be found in a finite amount of time and guesses and all modules are coherent.
+
+This is the reason why any modification of this repository should pass both a test of _game.py_ on a few words and an import of _auto_runs.py_ (to which one can add usual Lint checks for syntaxe mistakes). The reasonable --but not exhaustive-- choice we've made is to report any push that does not fulfill these tests through the continuous integration framework provided by Github workflow (see _.github\workflows/continuous_integration.yml_). The present version (v0) perfectly satisfies it. How good it does it is an another question that is answered in the next section.
 
 ## Performances
 Since _auto_runs.py_ is using all components of our work, it is relevant to apply time, line and memory profiling there. We chose to use [_pyinstrument_](https://github.com/joerick/pyinstrument) and [_pympler_](https://pympler.readthedocs.io/en/latest/#) and also simple timers with the native _time_ package.
