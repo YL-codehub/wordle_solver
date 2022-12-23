@@ -10,12 +10,19 @@ The motivation of this project is to provide a tool that, from the knowledge of 
 
 ## Installation
 
-This project has been written with Python 3.8 and numpy 1.23 only. Any updated version of those packages should work: continuous integration works for 3.6 versions to 3.8.
-You can either create the associated environment or create a container with Docker (see below).
+This project has been written using Python 3.8 and numpy 1.23 only. However the code passes continuous integration tests from at least 3.6 to 3.10. To execute line and memory profiling yourself (see section below), you'll need to install [**pyinstrument**](https://github.com/joerick/pyinstrument) line profiler and **pympler**(https://pympler.readthedocs.io/en/latest/#) memory profiler.
+
+To install those dependencies, you can create the associated environment and use in a terminal
+```
+pip3 install [package]
+```
+for numpy, pyinstrument and pympler.
+
+Alternatively you can create a container with Docker from the provided Dockerfile (see below).
 
 [Docker](https://www.docker.com/get-started/):
 
-In the wordle_solver directory, create a docker image (e.g. called python36_and_numpy) from the Dockerfile:
+In a terminal, in the wordle_solver directory, create a docker image (e.g. called python36_and_numpy) from the Dockerfile:
 ```
 docker build -t python36_and_numpy . 
 ```
@@ -35,36 +42,49 @@ python3 main.py
 ## Features & Construction
 
 prototyping and describing functions
-### main.py 
+### Construction philosophy
+blabla, invention process.
+
+### Files summary
+
+#### main.py 
+#### shortlist.py
+#### tools.py
+#### game.py
+#### auto_runs.py
+This is the only file that requires your modifications.
 
 ## Testing and Continuous Integration
-Unit tests, assert? pytest?
+blabla.
 
 ## Performances
+Since **auto_runs.py** is using all components of our work, it is relevant to apply time, line and memory profiling there. We chose to use [**pyinstrument**](https://github.com/joerick/pyinstrument) and [**pympler**](https://pympler.readthedocs.io/en/latest/#) and also simple timers with the native **time** package.
+
+An example of output from **auto_runs.py** with profilers all turned on:
 ```
 Average number of guesses : 3.980690507453464
 Number of words for each performance :
 Guesses to solve | % Words  | Cumulated %
         0           0.01        0.01
         1           1.32        1.33
-        2           14.71        16.03
-        3           30.66        46.70
-        4           23.95        70.65
-        5           13.54        84.19
+        2           14.71       16.03
+        3           30.66       46.70
+        4           23.95       70.65
+        5           13.54       84.19
         6           7.56        91.75
         7           3.87        95.62
         8           2.09        97.71
         9           1.16        98.87
-        10           0.58        99.45
-        11           0.31        99.76
-        12           0.13        99.89
-        13           0.08        99.97
-        14           0.02        99.99
-        15           0.01        100.00
-        16           0.00        100.00
-        17           0.00        100.00
-        18           0.00        100.00
-        19           0.00        100.00
+        10          0.58        99.45
+        11          0.31        99.76
+        12          0.13        99.89
+        13          0.08        99.97
+        14          0.02        99.99
+        15          0.01        100.00
+        16          0.00        100.00
+        17          0.00        100.00
+        18          0.00        100.00
+        19          0.00        100.00
 Average time per guess : 0.00061  seconds.
 --------------------------------------------------------------
 Line profiling:
@@ -108,9 +128,12 @@ Memory profiling:
 --------------------------------------------------------------
 ```
 ## Version status & open problems
-not completely solved; among words with one letter of difference, algorithm probably uses the most common one. 
+The current repository is the original version of the code (v0). Hereby, the author states that there won't be any more releases for future updates from himself starting from 1/1/23. 
 
-
+However, the author would like to make a few suggestions on possible improvements that could be made in future uses of this code:
+- the current version does not find all words within 6 guesses. For a few words, multiple words are indeed similar to them with only one unique letter; the algorithm has no other choice than proposing most of the words in this set. On the other hand, the author identify a possible bias in the secret word's choice by Wordle: within a list of almost identical words; the secret one is usually the most common one in human interactions. This means that the solver could stop doing arbitrary choices in such cases by e.g. using the google words' use ranking.
+- the assistant would obviously benefits from a GUI other than the terminal's.
+- if the algorithm is generalized to longer words, we would certainly need better time performance, e.g. by using better parallel processes and not just restricting it to numpy's use.
 --------------------------------------------------------------------------------
 
 Yoann Launay, University of Cambridge.
