@@ -1,6 +1,6 @@
 #  Wordle Solving Assistant 
 
-* *This file uses GitHub's Readme files syntax. Read it in the original repository online for a better experience.* *
+_This file uses GitHub's Readme files syntax. Read it in the original repository online for a better experience._
 
 ## Motivation
 
@@ -10,7 +10,7 @@ The motivation of this project is to provide a tool that, from the knowledge of 
 
 ## Installation
 
-This project has been written using Python 3.8 and numpy 1.23 only. However the code passes continuous integration tests from at least 3.6 to 3.10. To execute line and memory profiling yourself (see section below), you'll need to install [* *pyinstrument* *](https://github.com/joerick/pyinstrument) line profiler and [* *pympler* *](https://pympler.readthedocs.io/en/latest/#) memory profiler.
+This project has been written using Python 3.8 and numpy 1.23 only. However the code passes continuous integration tests from at least 3.6 to 3.10. To execute line and memory profiling yourself (see section below), you'll need to install [_pyinstrument_](https://github.com/joerick/pyinstrument) line profiler and [_pympler_](https://pympler.readthedocs.io/en/latest/#) memory profiler.
 
 To install those dependencies, you can create the associated environment and use in a terminal:
 ```
@@ -57,23 +57,23 @@ In this context, the 1st guess has been implemented independently and raised the
 ### Files summary
 In addition to files and functions being all documented and steps being explained when necessary, general comments for each file of the repository are provided in the following.
 #### main.py 
-As its name suggests, this file is the file to run to start interacting with the solver. It loops until the user decides to exit this elementary bash interface. At each step, a top guesses list is proposed thanks to * *shortlist.py* * and ask for the user's choice and the output of wordle for this guess. For each wordle output given to * *main.py* *, the shorlist is updated with those hints.
+As its name suggests, this file is the file to run to start interacting with the solver. It loops until the user decides to exit this elementary bash interface. At each step, a top guesses list is proposed thanks to _shortlist.py_ and ask for the user's choice and the output of wordle for this guess. For each wordle output given to _main.py_, the shorlist is updated with those hints.
 #### shortlist.py
-This file contains the Shorlist class with all methods that allow to use hints from wordle output to shorten the shortlist. Some methods also use the scoring library * *tools.py* *. This file is the heart of the solver.
+This file contains the Shorlist class with all methods that allow to use hints from wordle output to shorten the shortlist. Some methods also use the scoring library _tools.py_. This file is the heart of the solver.
 #### tools.py
 This is a simple and short library of secondary functions that allow splitting arrays of words into letters, ranking letters w.r.t their appearances, ranking words as potential guesses w.r.t to their diversity or their letters or writing the first ranking etc. 
 #### game.py
-It contains the Wordle class; a class that allows to re-create the hint outputs of the original game given a guess and without using any API to connect online. It uses the exact same rules and has been tested successfully many times. As explained below, the success of * *auto_runs.py* * is a strongly suggesting its correctness. 
+It contains the Wordle class; a class that allows to re-create the hint outputs of the original game given a guess and without using any API to connect online. It uses the exact same rules and has been tested successfully many times. As explained below, the success of _auto_runs.py_ is a strongly suggesting its correctness. 
 #### auto_runs.py
-This code runs the solver against all words of the 5-words dictionary (* *words.txt* *). For each secret word, the code won't stop until equality with the solver's guess or until reaching 16 guesses (as 15 has been found to be the worst case). If more than 16 guesses are needed for a given secret word, an error will be raised. Different time and memory performances are implemented; line and memory profiling can be turned on by setting their Boolean variables to * *True* * at the start of the file. 
+This code runs the solver against all words of the 5-words dictionary (_words.txt_). For each secret word, the code won't stop until equality with the solver's guess or until reaching 16 guesses (as 15 has been found to be the worst case). If more than 16 guesses are needed for a given secret word, an error will be raised. Different time and memory performances are implemented; line and memory profiling can be turned on by setting their Boolean variables to _True_ at the start of the file. 
 
 ## Testing and Continuous Integration
 blabla.
 
 ## Performances
-Since * *auto_runs.py* * is using all components of our work, it is relevant to apply time, line and memory profiling there. We chose to use [* *pyinstrument* *](https://github.com/joerick/pyinstrument) and [* *pympler* *](https://pympler.readthedocs.io/en/latest/#) and also simple timers with the native * *time* * package.
+Since _auto_runs.py_ is using all components of our work, it is relevant to apply time, line and memory profiling there. We chose to use [_pyinstrument_](https://github.com/joerick/pyinstrument) and [_pympler_](https://pympler.readthedocs.io/en/latest/#) and also simple timers with the native _time_ package.
 
-An example of output from * *auto_runs.py* * with profilers all turned on:
+An example of output from _auto_runs.py_ with profilers all turned on:
 ```
 Average number of guesses : 3.980690507453464
 Number of words for each performance :
