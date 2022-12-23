@@ -11,7 +11,7 @@ The motivation of this project is to provide a tool that, from the knowledge of 
 
 ## Installation
 
-This project has been written with Python 3.6 and numpy 1.23 only. Any updated version of those packages should work but the author advises not to take it for granted.
+This project has been written with Python 3.8 and numpy 1.23 only. Any updated version of those packages should work but the author advises not to take it for granted.
 You can either create the associated environment or create a container with Docker (see below).
 
 [Docker](https://www.docker.com/get-started/):
